@@ -1,7 +1,24 @@
 # textPrep
 a text preprocessing library for topic models
 
-### Requirements
+## textPrep for Norwegian subtitles
+This fork of textPrep has extended the toolkit to work with subtitles from Norwegian TV programs. This includes extensions to existing rules, new rules, as well as some small improvements in code used for general purposes. Here is an exhaustive list of the changes:
+
+### New rules
+* **RemoveNumbers:** Removes all instances of numbers (digits) from text (`remove_numbers.py`)
+* **RemoveSubtitleMetadata:** Removes metadata tags, characters and phrases that are found in Norwegian TV program subtitles (`remove_subtitle_metadata.py`)
+
+### Extensions to existing rules
+* **RemoveStopWords:** Extended to allow the use of a Norwegian stop word list for stop word removal (`remove_stopwords.py`)
+* **Lemmatize:** Extended to allow lemmatization in other languages than English with the help of SpaCy language models (`lemmatize.py`)
+* **PartOfSpeech:** Extended to allow PoS-tagging and removal in other languages than English with the help of SpaCy language models (`part_of_speech.py`)
+
+### Other changes
+* **get_data_stats:** This function adds support for calculating stop word statistics for datasets, using the extension above
+* **word_co_frequency_document:** This function is added for calculating word co-frequencies in individual documents, to enable parallelizing (`common.py`)
+* **compute_metrics:** Modified this function to return only coherence and diversity (`evaluate_topic_set.py`)
+
+## Requirements
 to install relevant requirements:
 > pip install -r requirements.txt
 
