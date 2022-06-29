@@ -2,6 +2,8 @@ import math
 from .part_of_speech import PartOfSpeech
 from .remove_punctuation import RemovePunctuation
 from .remove_stopwords import RemoveStopWords
+from .remove_numbers import RemoveNumbers
+from .remove_subtitle_metadata import RemoveSubtitleMetadata
 from .remove_urls import RemoveUrls
 from .synonyms import Synonyms
 from .lemmatize import Lemmatize
@@ -127,7 +129,7 @@ class Preprocess:
                 params = signature(fn)
                 for param in params.parameters:
                     if param == 'total_documents':
-                        extra_args['total_documents'] =  self.total_documents
+                        extra_args['total_documents'] = self.total_documents
                     elif param == 'freq':
                         extra_args['freq'] = self.freq
                 temp_D = fn(temp_D, **extra_args)
@@ -173,7 +175,7 @@ class Preprocess:
                 params = signature(fn)
                 for param in params.parameters:
                     if param == 'total_documents':
-                        extra_args['total_documents'] =  self.total_documents
+                        extra_args['total_documents'] = self.total_documents
                     elif param == 'freq':
                         extra_args['freq'] = self.freq
                 D = fn(D, **extra_args)

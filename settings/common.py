@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from preprocessing_pipeline import (Preprocess, RemovePunctuation, Capitalization, Stem, RemoveStopWords,
-                                    RemoveShortWords, TwitterCleaner, RemoveUrls, Synonyms, Blacklist, Lemmatize)
+from ..preprocessing_pipeline import (Preprocess, RemovePunctuation, RemoveNumbers, Capitalization, Stem, RemoveStopWords,
+                                      RemoveShortWords, TwitterCleaner, RemoveUrls, Synonyms, Blacklist, Lemmatize)
 
 
 def get_pp_pipeline(remove_stopwords=False, stem=True, lemmatize=False, stopwords=None, blacklist_words=None,
@@ -55,7 +55,8 @@ def get_pp_pipeline(remove_stopwords=False, stem=True, lemmatize=False, stopword
         pp.document_methods.append((lem.lemmatize_document, str(lem),))
 
     if remove_shortwords:
-        pp.document_methods.append((short_words.remove_short_words, str(short_words),))
+        pp.document_methods.append(
+            (short_words.remove_short_words, str(short_words),))
     return pp
 
 
@@ -113,15 +114,20 @@ def word_frequency(frequency, docs):
 
 def word_co_frequency(frequency, docs):
     for doc in docs:
-        for i in range(0, len(doc) - 1):
-            w1 = doc[i]
-            for j in range(i + 1, len(doc)):
-                w2 = doc[j]
-                word_list = sorted([w1, w2])
-                word_tup = tuple(word_list)
-                if not word_tup in frequency:
-                    frequency[word_tup] = 0
-                frequency[word_tup] += 1
+        word_co_frequency_document(frequency, doc)
+    return frequency
+
+
+def word_co_frequency_document(frequency, doc):
+    for i in range(0, len(doc) - 1):
+        w1 = doc[i]
+        for j in range(i + 1, len(doc)):
+            w2 = doc[j]
+            word_list = sorted([w1, w2])
+            word_tup = tuple(word_list)
+            if not word_tup in frequency:
+                frequency[word_tup] = 0
+            frequency[word_tup] += 1
     return frequency
 
 

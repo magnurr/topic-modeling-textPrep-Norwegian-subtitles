@@ -1,6 +1,6 @@
-from preprocessing_pipeline import Preprocess, whitelist, TFIDF
-from settings import ngrams
-from settings.common import word_frequency
+from ..preprocessing_pipeline import Preprocess, whitelist, TFIDF
+from ..settings import ngrams
+from ..settings.common import word_frequency
 
 
 # given a data set in form list of documents (d = [w1, w2, ... w_k])

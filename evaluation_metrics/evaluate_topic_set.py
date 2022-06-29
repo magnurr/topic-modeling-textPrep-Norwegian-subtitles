@@ -1,4 +1,4 @@
-from settings.common import (load_flat_dataset, load_topics, load_noise_words,
+from ..settings.common import (load_flat_dataset, load_topics, load_noise_words,
                              word_co_frequency, word_frequency)
 from .evaluation_metrics import (topic_coherence, topic_diversity,
                                  noise_penetration)
@@ -21,7 +21,13 @@ def analyze_dataset(dataset_path, noise_path):
     return freqs, cofreqs, noise_words
 
 
-def compute_metrics(topics, freqs, cofreqs, noise_words, k):
+def compute_metrics(topics, freqs, cofreqs, k):
+    coherence_score = topic_coherence(topics, freqs, cofreqs, k)
+    diversity_score = topic_diversity(topics, k)
+    return [coherence_score, diversity_score]
+
+
+def compute_metrics_with_noise(topics, freqs, cofreqs, noise_words, k):
     coherence_score = topic_coherence(topics, freqs, cofreqs, k)
     diversity_score = topic_diversity(topics, k)
     noise_score = noise_penetration(topics, noise_words, k)
